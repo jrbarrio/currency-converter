@@ -1,5 +1,12 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 before_install:
-  - chmod +x gradlew
+- chmod +x gradlew
+deploy:
+  provider: heroku
+  api_key:
+    secure: QwlXKMD4i1QDQ1cOL5GGNWWTgh5CiN1fOusm7EUkBjn9vS3AMcjW6gRhEH1npZGkOZflwp0gxL58ywh7HckfQ0MSjmSA4h1fYAlAzqqe5dBgeJb087j/gU5lmwUocVMLQD9a0zG/LiMoMRCLhrG6SZIxXt+toU696qeEs/VwGSCS+c1kJVpkoqPJauXg0UQrseGfz74cWYa4kcDzvlNM8H+Ly522TDE/r1cQYwRIv7vpJPxGeDX3wRC/LtCLeyjSsKicqUJQ04FrdMmvTxv7dxkvFmndjNujxekzx8K4RYBK2dX8DueDG3Qh/+qBvOzquA6ucIrLKIWNS1F93et45aiYfnkxxHEzF3HJTtVZxL+MzsEyRVLdzPcm/O1soM4ZaWESOSFfGup5bPRmyZimqHPAvNsftSAtKRnv4lVqE8aN01Jc5tOOHWUSVwqlua96XDxBbZ9Wvw00pdV2PjhhnZJRngtd9AQasngzL9yd8m/feKh55cWB3hc3qZfEvhbM3YuM9oS8t6M4yx/ijRPPZujXzb9hPPCsHG9o1hidrfgXvL+U2AbgVbRT0sWQaLYaREq6163LjN2CcR8s3cN3x7v/4g9XR6ENGGT19PEwCTAUHURiFyQcX6wTru8y98Po49bC23OdY1i41YMRl1QhNQkYibOcISSZ3pYwZYi76Q0=
+  app: currency-converter
+  on:
+    repo: jrbarrio/currency-converter
