@@ -1,0 +1,8 @@
+/.settings/
+/bin/
+/.classpath
+/.project
+/.springBeans
+/.gradle/
+/build/
+/gradle/
