@@ -1,17 +1,15 @@
-package com.roldan.currencyconverter;
-
-import java.util.Map;
+package com.roldan.currencyconverter.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/")
-public class LoginController {
+@RequestMapping("/register")
+public class RegisterController {
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String home(Map<String,Object> model) {
-		return "home";
+	public String register() {
+		return "registerForm";
 	}
 }
