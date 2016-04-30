@@ -2,9 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Currency Converter</title>
+    <link rel="stylesheet" type="text/css" th:ref="@{/style.css}"></link>
   </head>
 
   <body>
     <h2>Register</h2>
+    <form method="POST" th:object="${userForm}">
+      
+      <label th:class="${#fields.hasErrors('email')}? 'error'">Email</label>: 
+      <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('email')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('password')}? 'error'">Password</label>: 
+      <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('password')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('password')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('dateOfBirth')}? 'error'">Date of birth (YYYY/MM/dd)</label>: 
+      <input type="text" th:field="*{dateOfBirth}" th:class="${#fields.hasErrors('dateOfBirth')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('dateOfBirth')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('dateOfBirth')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('street')}? 'error'">Street</label>: 
+      <input type="text" th:field="*{street}" th:class="${#fields.hasErrors('street')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('street')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('street')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('zipCode')}? 'error'">Zip code</label>: 
+      <input type="text" th:field="*{zipCode}" th:class="${#fields.hasErrors('zipCode')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('zipCode')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('zipCode')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('city')}? 'error'">City</label>: 
+      <input type="text" th:field="*{city}" th:class="${#fields.hasErrors('city')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('city')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('city')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('country')}? 'error'">Country</label>: 
+      <input type="text" th:field="*{country}" th:class="${#fields.hasErrors('country')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('country')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('country')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+
+      <input type="submit" value="Register" />
+    </form>
   </body>
 </html>
