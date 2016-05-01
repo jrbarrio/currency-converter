@@ -7,13 +7,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
-public class LoginControllerTest {
+public class RatesControllerTest {
 	
 	@Test
 	public void testLoginPage() throws Exception {
-		LoginController loginController = new LoginController();
-		MockMvc mockMvc = standaloneSetup(loginController).build();
-		mockMvc.perform(get("/login")).andExpect(view().name("loginForm"));
+		RatesController ratesController = new RatesController();
+		MockMvc mockMvc = standaloneSetup(ratesController).build();
+		mockMvc.perform(get("/")).andExpect(view().name("ratesForm"));
 	}
 
 }

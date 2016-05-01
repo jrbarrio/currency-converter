@@ -9,11 +9,11 @@
     <h2>Register</h2>
     <form method="POST" th:object="${userForm}">
       
-      <label th:class="${#fields.hasErrors('email')}? 'error'">Email</label>: 
-      <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')}? 'error'" /><br/>
-      <div class="errors" th:if="${#fields.hasErrors('email')}">
+      <label th:class="${#fields.hasErrors('username')}? 'error'">Username</label>: 
+      <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('username')}">
         <ul>
-          <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Input is incorrect</li>
+          <li th:each="err : ${#fields.errors('username')}" th:text="${err}">Input is incorrect</li>
         </ul>
       </div>
       
@@ -22,6 +22,14 @@
       <div class="errors" th:if="${#fields.hasErrors('password')}">
         <ul>
           <li th:each="err : ${#fields.errors('password')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+      
+      <label th:class="${#fields.hasErrors('email')}? 'error'">Email</label>: 
+      <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')}? 'error'" /><br/>
+      <div class="errors" th:if="${#fields.hasErrors('email')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Input is incorrect</li>
         </ul>
       </div>
       
@@ -63,8 +71,7 @@
         <ul>
           <li th:each="err : ${#fields.errors('country')}" th:text="${err}">Input is incorrect</li>
         </ul>
-      </div>
-      
+      </div>      
 
       <input type="submit" value="Register" />
     </form>

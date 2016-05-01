@@ -1,8 +1,11 @@
 package com.roldan.currencyconverter.web;
 
+import org.springframework.stereotype.Component;
+
 import com.roldan.currencyconverter.domain.model.PostalAddress;
 import com.roldan.currencyconverter.domain.model.User;
 
+@Component
 public class UserTranslator {
 
 	public User translate(UserForm userForm) {
@@ -12,8 +15,9 @@ public class UserTranslator {
 				userForm.getCity(), 
 				userForm.getCountry());
 		User user = new User(
+				userForm.getUsername(), 
+				userForm.getPassword(),
 				userForm.getEmail(), 
-				userForm.getPassword(), 
 				userForm.getDateOfBirth(), 
 				postalAddress);
 		return user;

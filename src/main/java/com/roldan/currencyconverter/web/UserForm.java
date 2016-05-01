@@ -10,10 +10,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class UserForm {
 	
 	private Long id;
-	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="{email.pattern}")
-	private String email;
+	@Size(min=6, max=10, message="{username.size}")
+	private String username;
 	@Size(min=6, max=10, message="{password.size}")
 	private String password;
+	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="{email.pattern}")
+	private String email;
 	@Pattern(regexp="^\\d{4}/\\d{2}/\\d{2}$", message="{dateOfBirth.pattern}")
 	private String dateOfBirth;
 	@Size(min=1, max=50, message="{street.size}")
@@ -27,11 +29,12 @@ public class UserForm {
 	
 	public UserForm() {}
 	
-	public UserForm(Long id, String email, String password, String dateOfBirth, String street, String zipCode, String city, String country) {
+	public UserForm(Long id, String username, String password, String email, String dateOfBirth, String street, String zipCode, String city, String country) {
 		super();
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.street = street;
 		this.zipCode = zipCode;
@@ -39,10 +42,11 @@ public class UserForm {
 		this.country = country;
 	}
 
-	public UserForm(String email, String password, String dateOfBirth, String street, String zipCode, String city, String country) {
+	public UserForm(String username, String password, String email, String dateOfBirth, String street, String zipCode, String city, String country) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.street = street;
 		this.zipCode = zipCode;
@@ -55,6 +59,12 @@ public class UserForm {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getEmail() {
 		return email;
@@ -101,12 +111,12 @@ public class UserForm {
 	
 	@Override
 	public boolean equals(Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "id", "password", "dateOfBirth", "street", "zipCode", "city", "country");
+		return EqualsBuilder.reflectionEquals(this, that, "id", "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
 	}
   
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "id", "password", "dateOfBirth", "street", "zipCode", "city", "country");
+		return HashCodeBuilder.reflectionHashCode(this, "id", "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
 	}
 	
 	@Override

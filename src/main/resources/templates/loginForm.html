@@ -5,17 +5,21 @@
     <link rel="stylesheet" type="text/css" th:ref="@{/style.css}"></link>
   </head>
 
-  <body>
-    <h2>Login</h2>
-    <form method="POST">
-      <label for="email">Email:</label>
-      <input type="text" name="email"></input><br/>
+  <body onload='document.f.username.focus();'>
+    
+    <form name='f' th:action='@{/login}' method='POST'>
+      <label for="username">Username:</label>
+      <input type="text" name="username"></input><br/>
       <label for="password">Password:</label>
       <input type="password" name="password"></input><br/>
-      <input type="submit"></input>
+      <input id="remember_me" name="remember-me" type="checkbox"/>
+      <label for="remember_me" class="inline">Remember me</label>
+      <input name="submit" type="submit" value="Login"/>
     </form>
 
   	<a th:href="@{/register}">Register</a>
   </body>
 </html>
+
+
 

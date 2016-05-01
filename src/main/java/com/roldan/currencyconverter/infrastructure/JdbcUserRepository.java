@@ -3,6 +3,7 @@ package com.roldan.currencyconverter.infrastructure;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -15,20 +16,24 @@ public class JdbcUserRepository implements UserRepository {
 
 	private JdbcTemplate jdbcTemplate;
 
+	@Autowired
 	public JdbcUserRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;		
 	}
+	
+	public JdbcUserRepository() {}
 	
 	@Override	
 	public User save(User user) {
 		Long id = user.getId();
 		if (id == null) {
 			long userId = insertAndReturnUserId(user);
-			return new User(userId, user.getEmail(), user.getPassword(), user.getDateOfBirth(), user.getPostalAddress());
+			return new User(userId, user.getUsername(), user.getPassword(), user.getEmail(), user.getDateOfBirth(), user.getPostalAddress());
 		} else {
-			jdbcTemplate.update("update Spitter set email=?, password=?, dateOfBirth=?, street=?, zipCode=?, city=?, country=? where id=?",					
-					user.getEmail(),
+			jdbcTemplate.update("update Spitter set username=?, password=?, email=?, dateOfBirth=?, street=?, zipCode=?, city=?, country=? where id=?",					
+					user.getUsername(),
 					user.getPassword(),
+					user.getEmail(),
 					user.getDateOfBirth(),
 					user.getPostalAddress().getStreet(),
 					user.getPostalAddress().getZipCode(),
@@ -43,8 +48,9 @@ public class JdbcUserRepository implements UserRepository {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("User");
 		jdbcInsert.setGeneratedKeyName("id");
 		Map<String, Object> args = new HashMap<String, Object>();
-		args.put("email", user.getEmail());
+		args.put("username", user.getUsername());
 		args.put("password", user.getPassword());
+		args.put("email", user.getEmail());
 		args.put("dateOfBirth", user.getDateOfBirth());
 		args.put("street", user.getPostalAddress().getStreet());
 		args.put("zipCode", user.getPostalAddress().getZipCode());

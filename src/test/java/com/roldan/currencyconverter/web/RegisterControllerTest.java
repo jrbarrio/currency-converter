@@ -31,21 +31,22 @@ public class RegisterControllerTest {
 	@Test
 	public void testProcessRegistration() throws Exception {
 		UserTranslator userTranslator = mock(UserTranslator.class);
-		UserForm userForm = new UserForm("jorge.roldan@gmail.com", "password", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
 		PostalAddress postalAddress = new PostalAddress("Fermin Caballero", "28035", "Madrid", "Spain");
-		User unsavedUser = new User("jorge.roldan@gmail.com", "password", "1978/06/03", postalAddress);
+		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);
 		when(userTranslator.translate(userForm)).thenReturn(unsavedUser);
 		
 		UserRepository userRepository = mock(UserRepository.class);
-		User savedUser = new User(24L, "jorge.roldan@gmail.com", "password", "1978/06/03", postalAddress);		
+		User savedUser = new User(24L, "jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);		
 		when(userRepository.save(unsavedUser)).thenReturn(savedUser);
 		
 		RegisterController registerController = new RegisterController(userRepository, userTranslator);
 		MockMvc mockMvc = standaloneSetup(registerController).build();
 		
 		mockMvc.perform(post("/register")
-				.param("email", "jorge.roldan@gmail.com")
+				.param("username", "jrbarrio")
 				.param("password", "password")
+				.param("email", "jorge.roldan@gmail.com")
 				.param("dateOfBirth", "1978/06/03")
 				.param("street", "Fermin Caballero")
 				.param("zipCode", "28035")
@@ -59,11 +60,12 @@ public class RegisterControllerTest {
 	@Test
 	public void testUserTranslator() throws Exception {
 		UserTranslator userTranslator = new UserTranslator();
-		UserForm userForm = new UserForm("jorge.roldan@gmail.com", "password", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
 		User user = userTranslator.translate(userForm);
 		
-		assertEquals("jorge.roldan@gmail.com", user.getEmail());
+		assertEquals("jrbarrio", user.getUsername());
 		assertEquals("password", user.getPassword());
+		assertEquals("jorge.roldan@gmail.com", user.getEmail());
 		assertEquals("1978/06/03", user.getDateOfBirth());
 		assertEquals("Fermin Caballero", user.getPostalAddress().getStreet());
 		assertEquals("28035", user.getPostalAddress().getZipCode());

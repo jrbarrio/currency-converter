@@ -23,7 +23,7 @@ public class JdbcSpitterRepositoryTest {
 	@Transactional
 	public void saveNewUser() {
 		PostalAddress postalAddress = new PostalAddress("Fermin Caballero", "28035", "Madrid", "Spain");
-		User unsavedUser = new User("jorge.roldan@gmail.com", "password", "1978/06/03", postalAddress);
+		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);
 		User savedUser = userRepository.save(unsavedUser);
 		assertEquals(unsavedUser.getEmail(), savedUser.getEmail());
 	}

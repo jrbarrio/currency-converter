@@ -3,24 +3,27 @@ package com.roldan.currencyconverter.domain.model;
 public class User {
 	
 	private Long id;
-	private String email;
+	private String username;
 	private String password;
+	private String email;
 	private String dateOfBirth;
 	private PostalAddress postalAddress;
 	
-	public User(Long id, String email, String password, String dateOfBirth, PostalAddress postalAddress) {
+	public User(Long id, String username, String password, String email, String dateOfBirth, PostalAddress postalAddress) {
 		super();
 		this.id = id;
-		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.postalAddress = postalAddress;
 	}
 
-	public User(String email, String password, String dateOfBirth, PostalAddress postalAddress) {
+	public User(String username, String password, String email, String dateOfBirth, PostalAddress postalAddress) {
 		super();
-		this.email = email;
+		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.postalAddress = postalAddress;
 	}
@@ -31,6 +34,13 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getEmail() {
 		return email;
 	}
