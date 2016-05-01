@@ -1,5 +1,6 @@
 package com.roldan.currencyconverter.web;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -8,7 +9,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-import static org.junit.Assert.assertEquals;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,13 +34,18 @@ public class RegisterControllerTest {
 	@Test
 	public void testProcessRegistration() throws Exception {
 		UserTranslator userTranslator = mock(UserTranslator.class);
-		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1978, 06, 03);
+		Date dateOfBirth = calendar.getTime();
+		
+		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, "Fermin Caballero", "28035", "Madrid", "Spain");
 		PostalAddress postalAddress = new PostalAddress("Fermin Caballero", "28035", "Madrid", "Spain");
-		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);
+		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, postalAddress);
 		when(userTranslator.translate(userForm)).thenReturn(unsavedUser);
 		
 		UserRepository userRepository = mock(UserRepository.class);
-		User savedUser = new User(24L, "jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);		
+		User savedUser = new User(24L, "jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, postalAddress);		
 		when(userRepository.save(unsavedUser)).thenReturn(savedUser);
 		
 		RegisterController registerController = new RegisterController(userRepository, userTranslator);
@@ -47,7 +55,7 @@ public class RegisterControllerTest {
 				.param("username", "jrbarrio")
 				.param("password", "password")
 				.param("email", "jorge.roldan@gmail.com")
-				.param("dateOfBirth", "1978/06/03")
+				.param("dateOfBirth", "1978-06-03")
 				.param("street", "Fermin Caballero")
 				.param("zipCode", "28035")
 				.param("city", "Madrid")
@@ -59,14 +67,18 @@ public class RegisterControllerTest {
 	
 	@Test
 	public void testUserTranslator() throws Exception {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1978, 06, 03);
+		Date dateOfBirth = calendar.getTime();
+		
 		UserTranslator userTranslator = new UserTranslator();
-		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		UserForm userForm = new UserForm("jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, "Fermin Caballero", "28035", "Madrid", "Spain");
 		User user = userTranslator.translate(userForm);
 		
 		assertEquals("jrbarrio", user.getUsername());
 		assertEquals("password", user.getPassword());
 		assertEquals("jorge.roldan@gmail.com", user.getEmail());
-		assertEquals("1978/06/03", user.getDateOfBirth());
+		assertEquals(dateOfBirth, user.getDateOfBirth());
 		assertEquals("Fermin Caballero", user.getPostalAddress().getStreet());
 		assertEquals("28035", user.getPostalAddress().getZipCode());
 		assertEquals("Madrid", user.getPostalAddress().getCity());

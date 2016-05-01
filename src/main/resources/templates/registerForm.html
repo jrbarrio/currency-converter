@@ -33,8 +33,8 @@
         </ul>
       </div>
       
-      <label th:class="${#fields.hasErrors('dateOfBirth')}? 'error'">Date of birth (YYYY/MM/dd)</label>: 
-      <input type="text" th:field="*{dateOfBirth}" th:class="${#fields.hasErrors('dateOfBirth')}? 'error'" /><br/>
+      <label th:class="${#fields.hasErrors('dateOfBirth')}? 'error'">Date of birth</label>: 
+      <input type="date" th:field="*{dateOfBirth}" th:class="${#fields.hasErrors('dateOfBirth')}? 'error'" /><br/>
       <div class="errors" th:if="${#fields.hasErrors('dateOfBirth')}">
         <ul>
           <li th:each="err : ${#fields.errors('dateOfBirth')}" th:text="${err}">Input is incorrect</li>

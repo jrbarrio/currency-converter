@@ -7,6 +7,25 @@
 
   <body>
     <h2>Rates</h2>
+    
+    <form name='f' th:action='@{/login}' method='POST'>
+      <label for="from">From:</label>
+      <select name="from">
+	  	<option>USD</option>
+	  </select>
+      <label for="to">To:</label>
+      <select name="to">
+	  	<option>EUR</option>
+	  	<option>GBP</option>
+	  	<option>NZD</option>
+	  	<option>AUD</option>
+	  </select>
+      <label for="date">Date:</label>
+      <input type="date" name="date"></input>
+
+      <input name="submit" type="submit" value="Get rate"/>
+    </form>
+    
   </body>
 </html>
 

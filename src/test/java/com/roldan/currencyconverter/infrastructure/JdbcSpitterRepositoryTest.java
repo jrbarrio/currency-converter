@@ -2,6 +2,9 @@ package com.roldan.currencyconverter.infrastructure;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +25,12 @@ public class JdbcSpitterRepositoryTest {
 	@Test
 	@Transactional
 	public void saveNewUser() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(1978, 06, 03);
+		Date dateOfBirth = calendar.getTime();
+		
 		PostalAddress postalAddress = new PostalAddress("Fermin Caballero", "28035", "Madrid", "Spain");
-		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", "1978/06/03", postalAddress);
+		User unsavedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, postalAddress);
 		User savedUser = userRepository.save(unsavedUser);
 		assertEquals(unsavedUser.getEmail(), savedUser.getEmail());
 	}

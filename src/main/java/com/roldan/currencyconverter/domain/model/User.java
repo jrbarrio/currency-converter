@@ -1,15 +1,17 @@
 package com.roldan.currencyconverter.domain.model;
 
+import java.util.Date;
+
 public class User {
 	
 	private Long id;
 	private String username;
 	private String password;
 	private String email;
-	private String dateOfBirth;
+	private Date dateOfBirth;
 	private PostalAddress postalAddress;
 	
-	public User(Long id, String username, String password, String email, String dateOfBirth, PostalAddress postalAddress) {
+	public User(Long id, String username, String password, String email, Date dateOfBirth, PostalAddress postalAddress) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -19,7 +21,7 @@ public class User {
 		this.postalAddress = postalAddress;
 	}
 
-	public User(String username, String password, String email, String dateOfBirth, PostalAddress postalAddress) {
+	public User(String username, String password, String email, Date dateOfBirth, PostalAddress postalAddress) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -53,10 +55,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public PostalAddress getPostalAddress() {
