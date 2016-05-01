@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.roldan.currencyconverter.domain.model.User;
 import com.roldan.currencyconverter.domain.model.UserRepository;
 
 @Controller
@@ -16,10 +17,12 @@ import com.roldan.currencyconverter.domain.model.UserRepository;
 public class RegisterController {
 
 	private UserRepository userRepository;
+	private UserTranslator userTranslator;
 	
 	@Autowired
-	public RegisterController(UserRepository userRepository) {
+	public RegisterController(UserRepository userRepository, UserTranslator userTranslator) {
 		this.userRepository = userRepository;
+		this.userTranslator = userTranslator;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -34,7 +37,8 @@ public class RegisterController {
 			return "registerForm";
 		}
 		
-		userRepository.save(userForm);
+		User user = userTranslator.translate(userForm); 
+		userRepository.save(user);
 		return "loginForm";
 	}
 }

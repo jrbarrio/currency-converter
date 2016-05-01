@@ -8,10 +8,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.roldan.currencyconverter.domain.model.PostalAddress;
+import com.roldan.currencyconverter.domain.model.User;
 import com.roldan.currencyconverter.domain.model.UserRepository;
 
 public class RegisterControllerTest {
@@ -19,23 +22,25 @@ public class RegisterControllerTest {
 	@Test
 	public void testLoginPage() throws Exception {
 		UserRepository userRepository = mock(UserRepository.class);
-		RegisterController registerController = new RegisterController(userRepository);
+		UserTranslator userTranslator = mock(UserTranslator.class);
+		RegisterController registerController = new RegisterController(userRepository, userTranslator);
 		MockMvc mockMvc = standaloneSetup(registerController).build();
 		mockMvc.perform(get("/register")).andExpect(view().name("registerForm"));
 	}
 	
 	@Test
 	public void testProcessRegistration() throws Exception {
+		UserTranslator userTranslator = mock(UserTranslator.class);
+		UserForm userForm = new UserForm("jorge.roldan@gmail.com", "password", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		PostalAddress postalAddress = new PostalAddress("Fermin Caballero", "28035", "Madrid", "Spain");
+		User unsavedUser = new User("jorge.roldan@gmail.com", "password", "1978/06/03", postalAddress);
+		when(userTranslator.translate(userForm)).thenReturn(unsavedUser);
+		
 		UserRepository userRepository = mock(UserRepository.class);
-	
-		String dateOfBirth ="1978/06/03";
-		
-		UserForm unsavedUser = new UserForm("jorge.roldan@gmail.com", "password", dateOfBirth, "Fermin Caballero", "28035", "Madrid", "Spain");
-		UserForm savedUser = new UserForm(24L, "jorge.roldan@gmail.com", "password", dateOfBirth, "Fermin Caballero", "28035", "Madrid", "Spain");
-		
+		User savedUser = new User(24L, "jorge.roldan@gmail.com", "password", "1978/06/03", postalAddress);		
 		when(userRepository.save(unsavedUser)).thenReturn(savedUser);
 		
-		RegisterController registerController = new RegisterController(userRepository);
+		RegisterController registerController = new RegisterController(userRepository, userTranslator);
 		MockMvc mockMvc = standaloneSetup(registerController).build();
 		
 		mockMvc.perform(post("/register")
@@ -49,5 +54,20 @@ public class RegisterControllerTest {
 				.andExpect(view().name("loginForm"));
 		
 		verify(userRepository, atLeastOnce()).save(unsavedUser);
+	}
+	
+	@Test
+	public void testUserTranslator() throws Exception {
+		UserTranslator userTranslator = new UserTranslator();
+		UserForm userForm = new UserForm("jorge.roldan@gmail.com", "password", "1978/06/03", "Fermin Caballero", "28035", "Madrid", "Spain");
+		User user = userTranslator.translate(userForm);
+		
+		assertEquals("jorge.roldan@gmail.com", user.getEmail());
+		assertEquals("password", user.getPassword());
+		assertEquals("1978/06/03", user.getDateOfBirth());
+		assertEquals("Fermin Caballero", user.getPostalAddress().getStreet());
+		assertEquals("28035", user.getPostalAddress().getZipCode());
+		assertEquals("Madrid", user.getPostalAddress().getCity());
+		assertEquals("Spain", user.getPostalAddress().getCountry());
 	}
 }
