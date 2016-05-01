@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
     <title>Currency Converter</title>
     <link rel="stylesheet" type="text/css" th:ref="@{/style.css}"></link>
@@ -7,21 +7,30 @@
 
   <body>
     <h2>Rates</h2>
+    <div>Hello <span sec:authentication="name"></span>, you can <a th:href="@{/logout}">logout</a></div>
     
-    <form name='f' th:action='@{/login}' method='POST'>
+    <form method="POST" th:object="${ratesForm}">
+      <div class="errors" th:if="${#fields.hasErrors('*')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+      </div>
+    
       <label for="from">From:</label>
-      <select name="from">
-	  	<option>USD</option>
+      <select th:field="*{from}">
+	  	<option value="USD">USD</option>
 	  </select>
       <label for="to">To:</label>
-      <select name="to">
-	  	<option>EUR</option>
-	  	<option>GBP</option>
-	  	<option>NZD</option>
-	  	<option>AUD</option>
-	  </select>
+      <select th:field="*{to}">
+	  	<option value="EUR">EUR</option>
+	  	<option value="GBP">GBP</option>
+	  	<option value="NZD">NZD</option>
+	  	<option value="AUD">AUD</option>
+	  </select>	  
       <label for="date">Date:</label>
-      <input type="date" name="date"></input>
+      <input type="date" th:field="*{date}" th:class="${#fields.hasErrors('date')}? 'error'"></input>
+      <label for="text">Rate:</label>
+      <input type="text" th:field="*{rate}" disabled="true"></input>
 
       <input name="submit" type="submit" value="Get rate"/>
     </form>

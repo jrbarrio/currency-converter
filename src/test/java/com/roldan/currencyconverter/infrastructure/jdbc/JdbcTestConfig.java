@@ -1,4 +1,4 @@
-package com.roldan.currencyconverter.infrastructure;
+package com.roldan.currencyconverter.infrastructure.jdbc;
 
 import javax.sql.DataSource;
 
@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.roldan.currencyconverter.domain.model.UserRepository;
+import com.roldan.currencyconverter.infrastructure.jdbc.JdbcUserRepository;
 
 @Configuration
 public class JdbcTestConfig {

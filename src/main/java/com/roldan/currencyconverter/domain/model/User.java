@@ -4,22 +4,11 @@ import java.util.Date;
 
 public class User {
 	
-	private Long id;
 	private String username;
 	private String password;
 	private String email;
 	private Date dateOfBirth;
 	private PostalAddress postalAddress;
-	
-	public User(Long id, String username, String password, String email, Date dateOfBirth, PostalAddress postalAddress) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.dateOfBirth = dateOfBirth;
-		this.postalAddress = postalAddress;
-	}
 
 	public User(String username, String password, String email, Date dateOfBirth, PostalAddress postalAddress) {
 		super();
@@ -30,12 +19,6 @@ public class User {
 		this.postalAddress = postalAddress;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}

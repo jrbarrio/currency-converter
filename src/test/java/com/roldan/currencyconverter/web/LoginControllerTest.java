@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.roldan.currencyconverter.web.login.LoginController;
+
 public class LoginControllerTest {
 	
 	@Test

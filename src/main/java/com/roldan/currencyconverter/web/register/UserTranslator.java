@@ -1,4 +1,4 @@
-package com.roldan.currencyconverter.web;
+package com.roldan.currencyconverter.web.register;
 
 import org.springframework.stereotype.Component;
 

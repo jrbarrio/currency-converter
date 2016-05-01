@@ -19,6 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.roldan.currencyconverter.domain.model.PostalAddress;
 import com.roldan.currencyconverter.domain.model.User;
 import com.roldan.currencyconverter.domain.model.UserRepository;
+import com.roldan.currencyconverter.web.register.RegisterController;
+import com.roldan.currencyconverter.web.register.UserForm;
+import com.roldan.currencyconverter.web.register.UserTranslator;
 
 public class RegisterControllerTest {
 	
@@ -45,7 +48,7 @@ public class RegisterControllerTest {
 		when(userTranslator.translate(userForm)).thenReturn(unsavedUser);
 		
 		UserRepository userRepository = mock(UserRepository.class);
-		User savedUser = new User(24L, "jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, postalAddress);		
+		User savedUser = new User("jrbarrio", "password", "jorge.roldan@gmail.com", dateOfBirth, postalAddress);		
 		when(userRepository.save(unsavedUser)).thenReturn(savedUser);
 		
 		RegisterController registerController = new RegisterController(userRepository, userTranslator);

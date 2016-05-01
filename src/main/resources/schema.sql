@@ -1,8 +1,7 @@
 drop table if exists user;
 
 create table user (
-  id identity,
-  username varchar(50) not null,
+  username varchar(50) primary key,
   password varchar(10) not null,
   email varchar(50) not null,
   dateOfBirth date not null,
@@ -11,4 +10,6 @@ create table user (
   city varchar(50) not null,
   country varchar(50) not null
 );
+
+
 

@@ -1,4 +1,4 @@
-package com.roldan.currencyconverter.web;
+package com.roldan.currencyconverter.web.register;
 
 import java.util.Date;
 
@@ -13,7 +13,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserForm {
 	
-	private Long id;
 	@Size(min=6, max=10, message="{username.size}")
 	private String username;
 	@Size(min=6, max=10, message="{password.size}")
@@ -33,19 +32,6 @@ public class UserForm {
 	private String country;
 	
 	public UserForm() {}
-	
-	public UserForm(Long id, String username, String password, String email, Date dateOfBirth, String street, String zipCode, String city, String country) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.dateOfBirth = dateOfBirth;
-		this.street = street;
-		this.zipCode = zipCode;
-		this.city = city;
-		this.country = country;
-	}
 
 	public UserForm(String username, String password, String email, Date dateOfBirth, String street, String zipCode, String city, String country) {
 		super();
@@ -59,12 +45,6 @@ public class UserForm {
 		this.country = country;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -116,12 +96,12 @@ public class UserForm {
 	
 	@Override
 	public boolean equals(Object that) {
-		return EqualsBuilder.reflectionEquals(this, that, "id", "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
+		return EqualsBuilder.reflectionEquals(this, that, "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
 	}
   
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this, "id", "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
+		return HashCodeBuilder.reflectionHashCode(this, "password", "email", "dateOfBirth", "street", "zipCode", "city", "country");
 	}
 	
 	@Override

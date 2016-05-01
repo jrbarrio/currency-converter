@@ -1,4 +1,4 @@
-package com.roldan.currencyconverter.infrastructure;
+package com.roldan.currencyconverter.infrastructure.jdbc;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.roldan.currencyconverter.domain.model.PostalAddress;
 import com.roldan.currencyconverter.domain.model.User;
+import com.roldan.currencyconverter.infrastructure.jdbc.JdbcUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JdbcTestConfig.class)
