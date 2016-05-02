@@ -7,8 +7,9 @@ import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class RatesForm {
+public class QueryForm {
 	
+	private String username;
 	private String from;
 	private String to;
 	@NotNull(message="{date.notNull}")
@@ -17,6 +18,12 @@ public class RatesForm {
 	private Date date;
 	private float rate;
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public String getFrom() {
 		return from;
 	}

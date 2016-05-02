@@ -2,6 +2,7 @@ package com.roldan.currencyconverter.web.register;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -19,6 +20,7 @@ public class UserForm {
 	private String password;
 	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="{email.pattern}")
 	private String email;
+	@NotNull(message="{dateOfBirth.notnull}")
 	@Past(message="{dateOfBirth.past}")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dateOfBirth;

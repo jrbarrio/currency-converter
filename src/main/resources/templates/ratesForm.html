@@ -9,7 +9,7 @@
     <h2>Rates</h2>
     <div>Hello <span sec:authentication="name"></span>, you can <a th:href="@{/logout}">logout</a></div>
     
-    <form method="POST" th:object="${ratesForm}">
+    <form method="POST" th:object="${queryForm}">
       <div class="errors" th:if="${#fields.hasErrors('*')}">
         <ul>
           <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
@@ -29,11 +29,21 @@
 	  </select>	  
       <label for="date">Date:</label>
       <input type="date" th:field="*{date}" th:class="${#fields.hasErrors('date')}? 'error'"></input>
-      <label for="text">Rate:</label>
-      <input type="text" th:field="*{rate}" disabled="true"></input>
 
-      <input name="submit" type="submit" value="Get rate"/>
+      <input name="submit" type="submit" value="Query rate"/>
     </form>
+    
+    <div>
+        <h1>Recent queries</h1>
+        <ul>
+          <li th:each="queryForm : ${queryFormList}">
+            From <span th:text="${queryForm.from}">from</span>
+            to <span th:text="${queryForm.to}">to</span>  
+            on <span th:text="${queryForm.date}">date</span>
+            = <span th:text="${queryForm.rate}">rate</span>
+          </li>
+        </ul>
+      </div>
     
   </body>
 </html>
